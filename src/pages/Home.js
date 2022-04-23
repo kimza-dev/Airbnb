@@ -26,6 +26,17 @@ const Home = () => {
         <ConnectButton />
       </div>
     </div>
+    <div className="tabContent">
+      <div className="searchFields">
+        <div className="inputs"></div>
+        <div className="vl"></div>
+        <div className="inputs"></div>
+        <div className="vl"></div>
+        <div className="inputs"></div>
+        <div className="vl"></div>
+        <div className="inputs"></div>
+      </div>
+    </div>
     </>
   );
 };
