@@ -1,10 +1,8 @@
 import React from "react";
 import "./Rentals.css";
-import { link } from "react-router-dom";
-import { uselocation } from "react-router";
+import { Link } from "react-router-dom";
 import logo from "../images/airbnbRed.png";
-import { ConnectButton, Icon, Button, useNotification } from "web3uikit";
-import RentalsMap from "../components/RentalsMap";
+import { ConnectButton, Icon} from "web3uikit";
 import { useLocation } from "web3uikit/node_modules/react-router";
 
 const Rentals = () => {
