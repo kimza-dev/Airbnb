@@ -1,5 +1,5 @@
 import React from "react";
-import { Map, Market, GoogleApiWrapper } from "google-maps-react";
+import { Map, Market, GoogleApiWrapper, google } from "google-maps-react";
 import { useState, useEffect} from "react";
 
 
@@ -38,5 +38,4 @@ function RentalsMap(locations) {
 
 export default GoogleApiWrapper({
   apiKey: "AIzaSyBtiJe6xqasylmoGptTGNVG-ORTBBUQKZc",
-})
-(RentalsMap);
+})(RentalsMap);
