@@ -172,7 +172,7 @@ const Rentals = () => {
             rentalsList.map((e, i) => {
               return (
                 <>
-                  <hr className="line2" />
+                  <hr className="line2" /> 
                   <div className={highLight == i ? "rentalDivH " : "rentalDiv"}>
                     <img className="rentalImg" src={e.attributes.imgUrl}></img>
                     <div className="rentalInfo">

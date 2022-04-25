@@ -10,7 +10,7 @@ import { useState } from "react";
 const Home = () => {
   const [checkIn, setCheckIn] = useState(new Date());
   const [checkOut, setCheckOut] = useState(new Date());
-  const [destination, setDestination] = useState("New York");
+  const [destination, setDestination] = useState("Nairobi");
   const [guests, setGuests] = useState(2);
 
   return (
