@@ -37,6 +37,6 @@ function RentalsMap(locations) {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyBtiJe6xqasylmoGptTGNVG-ORTBBUQKZc"
+  apiKey: "AIzaSyBtiJe6xqasylmoGptTGNVG-ORTBBUQKZc",
 })
 (RentalsMap);
