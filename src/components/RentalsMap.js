@@ -14,12 +14,24 @@ function RentalsMap(locations) {
     var avgLng = arr.reduce((a, c) => a = Number(getLng(c)), 0) / arr.length;
 
     seCenter({lat:avgLat, lng:avgLng })
-    
+
   }, [locations])
 
   return (
     <>
-      <div>Map</div>
+      {center && (
+        <Map
+        google={google}
+        containerStyle={{
+          width: "50vw",
+          height: "calc(100vh - 135px)",
+        }}
+        center={center}
+        zoom={13}
+        disableDefaultUI={true}
+        >
+        </Map>
+      )}
     </>
   );
 }
