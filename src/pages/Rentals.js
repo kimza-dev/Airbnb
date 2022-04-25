@@ -24,8 +24,7 @@ const Rentals = () => {
 
   return (
     <>
-    <hr className="line"/>
-     <div className="topBanner">
+      <div className="topBanner">
         <div>
           <Link to="/">
             <img className="logo" src={logo} alt="logo"></img>
@@ -58,7 +57,60 @@ const Rentals = () => {
           </div>
         </div>
         <div className="lrContainers">
+          {account &&
+          <User account={account} />
+        }
           <ConnectButton />
+        </div>
+      </div>
+
+      <hr className="line" />
+      <div className="rentalsContent">
+        <div className="rentalsContentL">
+          Stays Available For Your Destination
+          {rentalsList &&
+            rentalsList.map((e, i) => {
+              return (
+                <>
+                  <hr className="line2" />
+                  <div className={highLight == i ? "rentalDivH " : "rentalDiv"}>
+                    <img className="rentalImg" src={e.attributes.imgUrl}></img>
+                    <div className="rentalInfo">
+                      <div className="rentalTitle">{e.attributes.name}</div>
+                      <div className="rentalDesc">
+                        {e.attributes.unoDescription}
+                      </div>
+                      <div className="rentalDesc">
+                        {e.attributes.dosDescription}
+                      </div>
+                      <div className="bottomButton">
+                        <Button 
+                        onClick={() => {
+                          if(account){
+                          bookRental(
+                            searchFilters.checkIn,
+                            searchFilters.checkOut,
+                            e.attributes.uid_decimal.value.$numberDecimal,
+                            Number(e.attributes.pricePerDay_decimal.value.$numberDecimal)
+                          )}else{
+                            handleNoAccount()
+                          }
+                        }
+                        }
+                        text="Stay Here" />
+                        <div className="price">
+                          <Icon fill="#808080" size={10} svg="matic" />{" "}
+                          {e.attributes.pricePerDay} / Day
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+        </div>
+        <div className="rentalsContentR">
+          <RentalsMap locations={coOrdinates} setHighLight={setHighLight} />
         </div>
       </div>
     </>
@@ -66,3 +118,4 @@ const Rentals = () => {
 };
 
 export default Rentals;
+
