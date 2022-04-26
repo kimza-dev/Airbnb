@@ -1,16 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-contract airbnb {
-
+contract Airbnb {
+    // start creating varibales for the contract
     address public owner;
     uint256 private counter;
 
     constructor() {
         counter = 0;
         owner = msg.sender;
-     }
+    }
 
+//this struct rentalInfo will include all the details for every rental we put on our smart contract 
     struct rentalInfo {
         string name;
         string city;
@@ -24,7 +25,7 @@ contract airbnb {
         string[] datesBooked;
         uint256 id;
         address renter;
-    }
+  }
 
     event rentalCreated (
         string name,
@@ -46,13 +47,13 @@ contract airbnb {
         uint256 id,
         address booker,
         string city,
-        string imgUrl 
+        string imgUrl
     );
 
     mapping(uint256 => rentalInfo) rentals;
     uint256[] public rentalIds;
 
-
+    //function of addRentals starts
     function addRentals(
         string memory name,
         string memory city,
@@ -80,6 +81,7 @@ contract airbnb {
         newRental.id = counter;
         newRental.renter = owner;
         rentalIds.push(counter);
+
         emit rentalCreated(
                 name, 
                 city, 
@@ -92,12 +94,15 @@ contract airbnb {
                 pricePerDay, 
                 datesBooked, 
                 counter, 
-                owner);
+                owner
+            );
         counter++;
+        //fucntion of addRentals ends
     }
 
+    // function adding checkbookings
+
     function checkBookings(uint256 id, string[] memory newBookings) private view returns (bool){
-        
         for (uint i = 0; i < newBookings.length; i++) {
             for (uint j = 0; j < rentals[id].datesBooked.length; j++) {
                 if (keccak256(abi.encodePacked(rentals[id].datesBooked[j])) == keccak256(abi.encodePacked(newBookings[i]))) {
@@ -108,26 +113,24 @@ contract airbnb {
         return true;
     }
 
-
     function addDatesBooked(uint256 id, string[] memory newBookings) public payable {
-        
+
         require(id < counter, "No such Rental");
         require(checkBookings(id, newBookings), "Already Booked For Requested Date");
         require(msg.value == (rentals[id].pricePerDay * 1 ether * newBookings.length) , "Please submit the asking price in order to complete the purchase");
-    
+
         for (uint i = 0; i < newBookings.length; i++) {
             rentals[id].datesBooked.push(newBookings[i]);
         }
-
         payable(owner).transfer(msg.value);
         emit newDatesBooked(newBookings, id, msg.sender, rentals[id].city,  rentals[id].imgUrl);
-    
     }
 
-    function getRental(uint256 id) public view returns (string memory, uint256, string[] memory){
+    function getRental(uint256 id) public view returns (string memory, uint256, string[] memory) {
         require(id < counter, "No such Rental");
 
         rentalInfo storage s = rentals[id];
         return (s.name,s.pricePerDay,s.datesBooked);
+        
     }
 }
