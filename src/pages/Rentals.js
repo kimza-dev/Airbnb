@@ -169,6 +169,8 @@ const Rentals = () => {
             <Icon fill="#ffffff" size={20} svg="search" />
           </div>
         </div>
+        // We add User component here and render it conditionally if 
+       // the user is is logged i
         <div className="lrContainers">
           {account &&
           <User account={account} />
