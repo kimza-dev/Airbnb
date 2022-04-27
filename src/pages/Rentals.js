@@ -8,6 +8,7 @@ import RentalsMap from "../components/RentalsMap";
 import { useState, useEffect } from "react";
 import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 import User from "../components/User";
+import { isVisible } from "@testing-library/user-event/dist/utils";
 
 const Rentals = () => {
   const { state: searchFilters } = useLocation();
@@ -48,6 +49,7 @@ const Rentals = () => {
 
   useEffect(() => {
     async function fetchRentalsList() {
+      // This queries our database to get bookings based on the account prop
       const Rentals = Moralis.Object.extend("Rentals");
       const query = new Moralis.Query(Rentals);
       query.equalTo("city", searchFilters.destination);
@@ -61,11 +63,13 @@ const Rentals = () => {
       });
 
       setCoOrdinates(cords);
+
+      // This sets the result from the db to the userRentals state
       setRentalsList(result);
     }
 
     fetchRentalsList();
-  }, [searchFilters]);
+  }, [isVisible]);
 
 
   const bookRental = async function (start, end, id, dayPrice) {
@@ -169,8 +173,6 @@ const Rentals = () => {
             <Icon fill="#ffffff" size={20} svg="search" />
           </div>
         </div>
-        // We add User component here and render it conditionally if 
-       // the user is is logged i
         <div className="lrContainers">
           {account &&
           <User account={account} />
