@@ -69,18 +69,26 @@ const Rentals = () => {
 
 
   const bookRental = async function (start, end, id, dayPrice) {
-    
+      // Our functions takes the start date, the end date, 
+      // the id of the location we want to book and 
+      // the day price of the location we want to book
     for (
-      var arr = [], dt = new Date(start);
+      var arr = [], dt = new Date(start);     // Arrays of strings and dates that we want to book for.
       dt <= end;
       dt.setDate(dt.getDate() + 1)
     ) {
       arr.push(new Date(dt).toISOString().slice(0, 10)); // yyyy-mm-dd
     }
 
+    // Options for Moralis excecute function
     let options = {
+      // Contract address for the deployed contract
       contractAddress: "0xa9110224Df672c266569931F4e03f009651149E6",
+
+      //function to be executed in the contract
       functionName: "addDatesBooked",
+
+      //abi from the already saved abi.json
       abi: [
         {
           "inputs": [
@@ -101,10 +109,15 @@ const Rentals = () => {
           "type": "function"
         }
       ],
+
+      // Parameters for the addDatesBooked as defined in the contract
+      // which is also passed in this functions parameter and the arr above
       params: {
         id: id,
         newBookings: arr,
       },
+
+      // How much matic to be paid which is the dayPrice
       msgValue: Moralis.Units.ETH(dayPrice * arr.length),
     }
     console.log(arr);

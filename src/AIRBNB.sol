@@ -130,7 +130,6 @@ contract Airbnb {
         require(id < counter, "No such Rental");
 
         rentalInfo storage s = rentals[id];
-        return (s.name,s.pricePerDay,s.datesBooked);
-        
+        return (s.name,s.pricePerDay,s.datesBooked); 
     }
 }
